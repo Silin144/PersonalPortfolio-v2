@@ -706,13 +706,13 @@ export const BentoGrid = () => {
               {/* CS Webring */}
               <div className="flex items-center gap-3">
                 <a 
-                  href="https://cs.uwatering.com/#silin.ca?nav=prev"
+                  href="https://cs.uwatering.com/#https://silin.ca?nav=prev"
                   className="text-text-tertiary hover:text-accent transition-colors text-sm"
                 >
                   ←
                 </a>
                 <a 
-                  href="https://cs.uwatering.com/#silin.ca" 
+                  href="https://cs.uwatering.com/#https://silin.ca" 
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:opacity-100 opacity-80 transition-opacity"
@@ -725,7 +725,7 @@ export const BentoGrid = () => {
                   />
                 </a>
                 <a 
-                  href="https://cs.uwatering.com/#silin.ca?nav=next"
+                  href="https://cs.uwatering.com/#https://silin.ca?nav=next"
                   className="text-text-tertiary hover:text-accent transition-colors text-sm"
                 >
                   →
