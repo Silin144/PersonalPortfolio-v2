@@ -39,3 +39,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Reference images and docs at root
+*.png
+!portfolio/**/*.png
+Silin-Raj-Gupta-Resume.pdf
+cursor_prompt.md
+portfolio_prd.md
