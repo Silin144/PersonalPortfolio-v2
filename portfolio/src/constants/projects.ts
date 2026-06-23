@@ -10,7 +10,7 @@ export const SOCIAL_LINKS = {
 export const EXPERIENCE = [
   {
     company: "Shopify",
-    role: "Incoming",
+    role: "Applied Machine Learning Engineer",
     period: "May – Aug 2026",
     location: "Toronto, ON",
     oneLiner: "Making commerce better for everyone",
