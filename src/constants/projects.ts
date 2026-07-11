@@ -4,7 +4,7 @@ export const SOCIAL_LINKS = {
   email: "sr4gupta@uwaterloo.ca",
   twitter: "https://twitter.com/silin_gupta",
   phone: "519-505-7421",
-  resume: "/resume.pdf",
+  resume: "/resume",
 };
 
 export const EXPERIENCE = [
