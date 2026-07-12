@@ -24,19 +24,19 @@ jobs:
           latexmk_use_xelatex: false
           args: -pdf -interaction=nonstopmode -halt-on-error
 
-      - name: Move PDF into public/
+      - name: Move PDF into portfolio/public/
         run: |
-          mkdir -p public
-          mv resume.pdf public/resume.pdf
+          mkdir -p portfolio/public
+          mv resume.pdf portfolio/public/resume.pdf
 
       - name: Commit updated PDF
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          if git diff --quiet public/resume.pdf; then
+          if git diff --quiet portfolio/public/resume.pdf; then
             echo "No PDF changes to commit."
             exit 0
           fi
-          git add public/resume.pdf
+          git add portfolio/public/resume.pdf
           git commit -m "chore: rebuild resume.pdf from resume.tex"
           git push
