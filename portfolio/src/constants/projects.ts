@@ -7,10 +7,27 @@ export const SOCIAL_LINKS = {
   resume: "/resume",
 };
 
-export const EXPERIENCE = [
+type ExperienceRole = {
+  role: string;
+  period: string;
+  location?: string;
+};
+
+type Experience = {
+  company: string;
+  role?: string;
+  roles?: ExperienceRole[];
+  period?: string;
+  location?: string;
+  oneLiner: string;
+  link: string;
+  logo: string;
+};
+
+export const EXPERIENCE: Experience[] = [
   {
     company: "Shopify",
-    role: "Applied Machine Learning Engineer",
+    role: "Applied MLE",
     period: "May – Aug 2026",
     location: "Toronto, ON",
     oneLiner: "Making commerce better for everyone",
@@ -19,9 +36,17 @@ export const EXPERIENCE = [
   },
   {
     company: "E3 Group",
-    role: "Full-Stack AI Engineer",
-    period: "Jan – Apr 2026",
-    location: "San Francisco, CA",
+    roles: [
+      {
+        role: "Member of Technical Staff",
+        period: "Sep 2026 – Present",
+      },
+      {
+        role: "Full-Stack AI Engineer",
+        period: "Jan – Apr 2026",
+        location: "San Francisco, CA",
+      },
+    ],
     oneLiner: "AI Transformation for Freight & Logistics",
     link: "https://e3group.ai/",
     logo: "/images/e3group-logo.png",
@@ -43,24 +68,6 @@ export const EXPERIENCE = [
     oneLiner: "Automated insurance workflows with AI",
     link: "https://policyadvisor.com",
     logo: "/images/policyadvisor-logo.png",
-  },
-  {
-    company: "Modulus Systems",
-    role: "SWE Intern",
-    period: "Apr – Jun 2024",
-    location: "Delhi, India",
-    oneLiner: "Built ML models reducing customer churn by 20%",
-    link: "https://www.linkedin.com/company/modulus-systems/",
-    logo: "/images/modulussystems-logo.jpeg",
-  },
-  {
-    company: "Mentors Ethicare",
-    role: "SWE Intern",
-    period: "May – Aug 2023",
-    location: "Delhi, India",
-    oneLiner: "Built HIPAA-compliant telemedicine platform",
-    link: "https://www.linkedin.com/company/methicare/",
-    logo: "/images/metorsethicare-logo.png",
   },
 ];
 

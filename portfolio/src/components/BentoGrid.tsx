@@ -540,49 +540,104 @@ export const BentoGrid = () => {
                 transition={{ duration: 0.4, delay: 0.1 + i * 0.05 }}
                 whileHover={{ scale: 1.015, zIndex: 10 }}
               >
-                <div className="bento-card flex items-center gap-4 !py-3.5 !px-4">
+                <div
+                  className={cn(
+                    "bento-card flex gap-4 !py-3.5 !px-4",
+                    exp.roles?.length ? "items-start" : "items-center"
+                  )}
+                >
                   {exp.logo && (
                     <a
                       href={exp.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex-shrink-0"
+                      className={cn("flex-shrink-0", exp.roles?.length && "mt-0.5")}
                     >
                       <img
                         src={exp.logo}
                         alt={exp.company}
                         className="w-[44px] h-[44px] object-contain"
-                        style={exp.company === "Mentors Ethicare" ? { objectPosition: "center 40%" } : undefined}
                       />
                     </a>
                   )}
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-start justify-between gap-2">
-                      <div className="min-w-0">
-                        <h3 className="text-sm text-text-primary leading-tight">
-                          <span className="font-semibold">{exp.role}</span>
-                          <span className="text-text-tertiary"> @ </span>
-                          {exp.link ? (
-                            <GlowLink href={exp.link}>{exp.company}</GlowLink>
-                          ) : (
-                            <span>{exp.company}</span>
+                    {exp.roles?.length ? (
+                      <>
+                        <div className="flex items-start justify-between gap-2">
+                          <div className="min-w-0">
+                            <h3 className="text-sm font-semibold text-text-primary leading-tight">
+                              <GlowLink href={exp.link}>{exp.company}</GlowLink>
+                            </h3>
+                            <p className="text-[11px] text-text-secondary mt-0.5 truncate">
+                              {exp.oneLiner}
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="mt-3">
+                          {exp.roles.map((role, roleIndex) => (
+                            <div
+                              key={role.role}
+                              className="group/role grid grid-cols-[12px_minmax(0,1fr)] gap-2.5"
+                            >
+                              <div aria-hidden="true" className="relative flex justify-center">
+                                {roleIndex < exp.roles!.length - 1 && (
+                                  <span className="absolute top-[9px] h-full w-px bg-accent" />
+                                )}
+                                <span className="relative z-10 mt-1.5 h-1.5 w-1.5 rounded-full bg-accent shadow-[0_0_8px_var(--accent-glow)]" />
+                              </div>
+
+                              <div className="min-w-0 pb-3 group-last/role:pb-0">
+                                <div className="flex items-start justify-between gap-3">
+                                  <p className="text-sm font-semibold leading-tight text-text-primary">
+                                    {role.role}
+                                  </p>
+                                  <div className="flex-shrink-0 text-right space-y-3">
+                                    <span className="block whitespace-nowrap text-[9px] uppercase tracking-wider text-text-tertiary">
+                                      {role.period}
+                                    </span>
+                                    {role.location && (
+                                      <span className="block whitespace-nowrap text-[9px] uppercase tracking-wider text-text-tertiary">
+                                        {role.location}
+                                      </span>
+                                    )}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </>
+                    ) : (
+                      <div className="flex items-start justify-between gap-2">
+                        <div className="min-w-0">
+                          <h3 className="text-sm text-text-primary leading-tight">
+                            <span className="font-semibold">{exp.role}</span>
+                            <span className="text-text-tertiary"> @ </span>
+                            {exp.link ? (
+                              <GlowLink href={exp.link}>{exp.company}</GlowLink>
+                            ) : (
+                              <span>{exp.company}</span>
+                            )}
+                          </h3>
+                          <p className="text-[11px] text-text-secondary mt-0.5 truncate">
+                            {exp.oneLiner}
+                          </p>
+                        </div>
+                        <div className="flex-shrink-0 text-right space-y-3">
+                          {exp.period && (
+                            <span className="text-[9px] uppercase tracking-wider text-text-tertiary whitespace-nowrap block">
+                              {exp.period}
+                            </span>
                           )}
-                        </h3>
-                        <p className="text-[11px] text-text-secondary mt-0.5 truncate">
-                          {exp.oneLiner}
-                        </p>
+                          {exp.location && (
+                            <span className="text-[9px] uppercase tracking-wider text-text-tertiary whitespace-nowrap block">
+                              {exp.location}
+                            </span>
+                          )}
+                        </div>
                       </div>
-                      <div className="flex-shrink-0 text-right space-y-3">
-                        <span className="text-[9px] uppercase tracking-wider text-text-tertiary whitespace-nowrap block">
-                          {exp.period}
-                        </span>
-                        {exp.location && (
-                          <span className="text-[9px] uppercase tracking-wider text-text-tertiary whitespace-nowrap block">
-                            {exp.location}
-                          </span>
-                        )}
-                      </div>
-                    </div>
+                    )}
                   </div>
                 </div>
               </motion.div>

@@ -1,10 +1,7 @@
 %-------------------------
 % Resume in Latex
 % Author : Silin144
-% Based off of: https://github.com/Silin144
-% License : MIT
-% Restyled: Source Sans Pro, blue accents, title-case headers, narrow margins, FA icons
-%------------------------
+%-------------------------
 
 \documentclass[letterpaper,11pt]{article}
 
@@ -21,188 +18,351 @@
 \usepackage[english]{babel}
 \usepackage{tabularx}
 \usepackage[T1]{fontenc}
-\usepackage[default]{sourcesanspro}   % Source Sans Pro, matching the reference
-\usepackage{microtype}    % enables letter-spacing for the name
-\usepackage{fontawesome5} % GitHub / LinkedIn / email / globe icons
+\usepackage[default]{sourcesanspro}
+\usepackage{microtype}
+\usepackage{fontawesome5}
 \input{glyphtounicode}
 
-
 %----------COLORS----------
-\definecolor{accent}{HTML}{000080}   % navy for name, headers, links
-\definecolor{rule}{HTML}{000080}     % navy section rule (line breaks)
-
+\definecolor{accent}{HTML}{000080}
+\definecolor{rule}{HTML}{000080}
 
 \pagestyle{fancy}
-\fancyhf{} % clear all header and footer fields
+\fancyhf{}
 \fancyfoot{}
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
 
-% Adjust margins (narrower left/right borders)
+%----------MARGINS----------
 \addtolength{\oddsidemargin}{-0.8in}
 \addtolength{\evensidemargin}{-0.8in}
 \addtolength{\textwidth}{1.6in}
 \addtolength{\topmargin}{-.5in}
-\addtolength{\textheight}{1.0in}
+\addtolength{\textheight}{1.15in}
 
 \urlstyle{same}
 
 \raggedbottom
 \raggedright
 \setlength{\tabcolsep}{0in}
-\linespread{0.88}   % tighter line spacing
+\linespread{0.88}
 
-% Sections formatting: title-case, blue, blue rule
+%----------SECTION FORMATTING----------
 \titleformat{\section}{
   \vspace{-5.32pt}\raggedright\large\color{accent}
 }{}{0em}{}[\color{rule}\titlerule \vspace{-6.66pt}]
 
-% Ensure that generate pdf is machine readable/ATS parsable
+% Ensure PDF is ATS-readable
 \pdfgentounicode=1
 
 %-------------------------
-% Custom commands
+% CUSTOM COMMANDS
+%-------------------------
+
 \newcommand{\resumeItem}[1]{
-  \item\small{
-    {#1 \vspace{-2pt}}
+  \item\normalsize{
+    {#1 \vspace{-1pt}}
   }
 }
 
-% colored, underlined header link
-\newcommand{\link}[2]{\href{#1}{\underline{\textcolor{accent}{#2}}}}
-% icon + colored underlined link for the header
-\newcommand{\headlink}[3]{\textcolor{accent}{#1}\,\href{#2}{\underline{\textcolor{accent}{#3}}}}
+\newcommand{\link}[2]{
+  \href{#1}{\underline{\textcolor{accent}{#2}}}
+}
+
+\newcommand{\headlink}[3]{
+  \textcolor{accent}{#1}\,
+  \href{#2}{\underline{\textcolor{accent}{#3}}}
+}
 
 \newcommand{\resumeSubheading}[4]{
-  \vspace{-2pt}\item
+  \vspace{-3pt}\item
     \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
       \textbf{#1} & #2 \\
-      \textit{\small#3} & \textit{\small #4} \\
-    \end{tabular*}\vspace{-8pt}
+      \textit{\normalsize #3} & \textit{\normalsize #4} \\
+    \end{tabular*}\vspace{-9pt}
 }
 
 \newcommand{\resumeSubSubheading}[2]{
-    \item
+  \item
     \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
-      \textit{\small#1} & \textit{\small #2} \\
+      \textit{\normalsize #1} & \textit{\normalsize #2} \\
     \end{tabular*}\vspace{-7pt}
 }
 
 \newcommand{\resumeProjectHeading}[2]{
-    \item
+  \item
     \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
-      \small#1 & #2 \\
+      \normalsize #1 & #2 \\
     \end{tabular*}\vspace{-7pt}
 }
 
-\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
+\newcommand{\resumeSubItem}[1]{
+  \resumeItem{#1}\vspace{-4pt}
+}
 
 \renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
 
-\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
-\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
-\newcommand{\resumeItemListStart}{\begin{itemize}[itemsep=1pt, parsep=0pt, topsep=2pt, rightmargin=0.04\textwidth]}
-\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-6pt}}
+\newcommand{\resumeSubHeadingListStart}{
+  \begin{itemize}[leftmargin=0.15in, label={}]
+}
+
+\newcommand{\resumeSubHeadingListEnd}{
+  \end{itemize}
+}
+
+% Consistent spacing for experience and project bullets
+\newcommand{\resumeItemListStart}{
+  \begin{itemize}[
+    itemsep=2pt,
+    parsep=0pt,
+    topsep=2pt,
+    rightmargin=0.04\textwidth
+  ]
+}
+
+\newcommand{\resumeItemListEnd}{
+  \end{itemize}\vspace{-7pt}
+}
+
+\newcommand{\resumeProjectItemListStart}{
+  \begin{itemize}[
+    itemsep=2pt,
+    parsep=0pt,
+    topsep=2pt,
+    rightmargin=0.04\textwidth
+  ]
+}
+
+\newcommand{\resumeProjectItemListEnd}{
+  \end{itemize}\vspace{-7pt}
+}
 
 %-------------------------------------------
-%%%%%%  RESUME STARTS HERE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+% RESUME STARTS HERE
+%-------------------------------------------
 
 \begin{document}
 
 %----------HEADING----------
 \begin{center}
-    {\fontsize{30}{34}\selectfont\color{accent}\bfseries\scshape\textls[40]{Silin Raj Gupta}} \\ \vspace{4pt}
-    \small \headlink{\faPhone}{tel:+15195057421}{519-505-7421} $|$
+    {\fontsize{30}{34}\selectfont
+    \color{accent}
+    \bfseries
+    \scshape
+    \textls[40]{Silin Raj Gupta}} \\ \vspace{4pt}
+
+    \small
+    \headlink{\faPhone}{tel:+15195057421}{519-505-7421} $|$
     \headlink{\faEnvelope}{mailto:sr4gupta@uwaterloo.ca}{sr4gupta@uwaterloo.ca} $|$
     \headlink{\faLinkedin}{https://www.linkedin.com/in/silin-gupta}{linkedin.com/in/silin-gupta} $|$
     \headlink{\faGithub}{https://github.com/Silin144}{github.com/Silin144} $|$
     \headlink{\faGlobe}{https://silin.ca}{silin.ca}
 \end{center}
 
-
 %-----------EDUCATION-----------
 \section{Education}
-  \resumeSubHeadingListStart
-    \resumeSubheading
-      {University of Waterloo}{Waterloo, ON}
-      {Bachelor of Computer Science, Honours, Co-op}{Sep 2024 -- Apr 2029 (Expected)}
-  \resumeSubHeadingListEnd
+
+\resumeSubHeadingListStart
+
+  \resumeSubheading
+    {University of Waterloo}{Waterloo, ON}
+    {Bachelor of Computer Science, Honours, Co-op}
+    {Sep 2024 -- Apr 2029 (Expected)}
+
+\resumeSubHeadingListEnd
 
 
-%-----------SKILLS-----------
-\section{Skills}
- \begin{itemize}[leftmargin=0.15in, label={}]
-    \small{\item{
-     \textbf{Languages}{: Python, C/C++, JavaScript/TypeScript, Ruby, Swift, SQL, HTML/CSS} \\
-     \textbf{AI / ML}{: LLMs (OpenAI, Anthropic, Gemini, Grok), RAG \& vector search (Pinecone), prompt engineering, agent evals, computer vision, speech (STT/TTS, realtime voice), LangChain} \\
-     \textbf{Web \& Mobile}{: React, Next.js, React Native (Expo), Node.js, FastAPI, Rails, GraphQL (Apollo), Tailwind CSS} \\
-     \textbf{Tools \& Infrastructure}{: Git, Docker, Linux, Bash, CI/CD, AWS, GCP, PostgreSQL/Supabase, n8n, Figma}
-    }}
- \end{itemize}
-
-
-%-----------EXPERIENCE-----------
+%-----------PROFESSIONAL EXPERIENCE-----------
 \section{Professional Experience}
-  \resumeSubHeadingListStart
 
-    \resumeSubheading
-      {Applied Machine Learning Engineer}{May 2026 -- Aug 2026}
-      {Shopify (Search Product \& Tooling)}{Toronto, ON}
-      \resumeItemListStart
-        \resumeItem{Contributed to open source\,\href{https://github.com/TangleML/tangle-cli/pull/20}{\faGithub}\, on \textbf{Tangle}\,\href{https://tangleml.com/}{\faGlobe}, Shopify's ML experimentation platform: authored an \textbf{agent-skills bundle} (8-step tuning loop, 7 subagents) that drives coding agents through end-to-end ML experiments.}
-        \resumeItem{Authored a \textbf{library of 17 reference skills} codifying reusable patterns for agent-authored pipelines, including secret handling that teaches Tangent to resolve credentials from secret stores instead of inlining them.}
-        \resumeItem{Built an evaluation suite that regression-tests the \textbf{8 agentic skills} guiding coding agents (Claude Code, Pi) to author, submit, and review ML pipelines on Tangle.}
-        \resumeItem{Designed \textbf{75 planted-defect fixtures} scoring whether the agent catches seeded faults, measuring skill improvements vs. regressions per SKILL.md edit and auto-proposing LLM-generated skill fixes for failing cases.}
-        \resumeItem{Parallelized the suite's sequential test-case runs into concurrent execution, cutting full eval time from \textbf{4 hours to 28 minutes}.}
-      \resumeItemListEnd
+\resumeSubHeadingListStart
 
-    \resumeSubheading
-      {Full Stack AI Engineer}{Jan 2026 -- Apr 2026}
-      {E3 Group}{San Francisco, CA}
-      \resumeItemListStart
-        \resumeItem{Re-architected a production freight-invoice-to-\textbf{EDI 210} pipeline (Python, Gemini vision OCR), replacing a single monolithic prompt with versioned prompts and broker-specific post-processing modules validated against EDI ground truth, lifting field-extraction accuracy from \textbf{70\% to 95\%}.}
-        \resumeItem{Developed an automated \textbf{email-to-EDI ingestion pipeline} handling $\sim$\textbf{600 invoices/day} from Gmail, classifying and merging attachments and resolving carriers via parallel Gemini extraction, removing a third-party FTP/OCR dependency.}
-        \resumeItem{Engineered the reliability layer that let EDIs ship without manual review: a build-time \textbf{verification gate} flagging fields absent from the source document and \textbf{cross-drop deduplication} that ended a week-long duplicate-billing incident, replacing next-day spreadsheet QA.}
-        \resumeItem{Built a shared \textbf{React component library} and agent skills that migrate a dashboard's full UI in one prompt, then shipped \textbf{multiple client-tailored dashboards} for invoice review and annotation.}
-        \resumeItem{Led \textbf{weekly 1:1 client calls} to triage issues and prioritize fixes, scaling from \textbf{4 to 20+ broker/carrier feeds} through production cutover.}
-      \resumeItemListEnd
+  %----------SHOPIFY----------
+  \resumeSubheading
+    {Applied ML Engineer Intern}{May 2026 -- Aug 2026}
+    {Shopify --- Search Product \& Tooling}{Toronto, ON}
 
-    \resumeSubheading
-      {iOS App Developer}{Oct 2025 -- Dec 2025}
-      {Merazine}{San Francisco, CA}
-      \resumeItemListStart
-        \resumeItem{Built a full-stack AI companion app (React Native, GraphQL, Supabase) with \textbf{real-time voice} over OpenAI's Realtime API and dual-tier memory, plus ESP32-S3 firmware for the companion hardware (BLE WiFi provisioning, I2S mic capture, bidirectional PCM audio streaming).}
-      \resumeItemListEnd
+    \resumeItemListStart
 
-    \resumeSubheading
-      {Software Engineer}{May 2025 -- Aug 2025}
-      {PolicyAdvisor}{Toronto, ON}
-      \resumeItemListStart
-        \resumeItem{Built a Next.js + FastAPI proposal-automation platform on the Google Gemini API, cutting processing from \textbf{5--6 hrs to 2--5 mins} at 99\%+ accuracy across 10+ carriers and saving \textbf{$\sim$\$100,000}/year.}
-        \resumeItem{Spearheaded \textbf{vIQ}\,\href{https://visitorinsurancequotes.ca}{\faGlobe}, a visitor-insurance platform integrating 10+ carrier APIs with real-time pricing and caching, leading a cross-functional team to \textbf{launch in 2 weeks}.}
-        \resumeItem{Orchestrated a \textbf{24/7 AI voicebot} (n8n, ElevenLabs, Twilio, Google Calendar) handling client calls and auto-scheduling callbacks, reducing missed leads by \textbf{40\%}.}
-      \resumeItemListEnd
+      \resumeItem{
+        Built the evaluation system for Shopify's autonomous ML experimentation
+        agent, using \textbf{75 test cases and 10 scoring rubrics} to catch
+        regressions and compare changes before they were merged.
+      }
 
-  \resumeSubHeadingListEnd
+      \resumeItem{
+        Moved Shopify's Python ML-pipeline tooling into the public
+        \href{https://github.com/TangleML/tangle-cli}{TangleML/tangle-cli}
+        repository, preserving identical behavior while removing
+        \textbf{5k+ lines of duplicated internal code}.
+      }
+
+      \resumeItem{
+        Fixed a security issue where an AI agent could expose API tokens in
+        generated pipelines, adding safe secret handling and pre-submission
+        checks, validated across
+        \textbf{3 end-to-end runs with zero secret-access attempts}.
+      }
+
+      \resumeItem{
+        Benchmarked Shopify's agent against four alternative approaches across
+        110 experiments and 22 ML competitions; it earned
+        \textbf{17/22 medals and 12 golds}, the highest gold-medal count.
+      }
+
+    \resumeItemListEnd
+
+
+  %----------E3 GROUP----------
+  \resumeSubheading
+    {Member of Technical Staff}{Jan 2026 -- Apr 2026}
+    {E3 Group}{San Francisco, CA}
+
+    \resumeItemListStart
+
+      \resumeItem{
+        Rebuilt a production AI system that turns freight invoices into
+        structured billing data, improving extraction accuracy from
+        \textbf{70\% to 98\%+} through better prompting, validation,
+        and customer-specific processing.
+      }
+
+      \resumeItem{
+        Took ownership of production issues across the invoice platform,
+        diagnosing live failures and duplicate billing and adding automated
+        validation, recovery, and delivery safeguards to prevent recurring issues.
+      }
+
+      \resumeItem{
+        Created a \textbf{shared React component library} for E3's frontends
+        and used it to build and redesign products for document analysis,
+        invoice operations, email workflows, and negotiations.
+      }
+
+      \resumeItem{
+        Ran \textbf{daily 1:1 client meetings} to investigate production issues,
+        understand new requirements, prioritize fixes, and turn customer
+        feedback directly into product changes.
+      }
+
+    \resumeItemListEnd
+
+
+  %----------MERAZINE----------
+  \resumeSubheading
+    {iOS Developer}{Oct 2025 -- Dec 2025}
+    {Merazine}{Los Angeles, CA}
+
+    \resumeItemListStart
+
+      \resumeItem{
+        Developed a full-stack AI companion app with
+        \textbf{real-time voice conversations and persistent memory},
+        along with ESP32-S3 companion hardware supporting Bluetooth/Wi-Fi
+        setup and live two-way audio streaming.
+      }
+
+    \resumeItemListEnd
+
+
+  %----------POLICYADVISOR----------
+  \resumeSubheading
+    {Software Engineer}{May 2025 -- Aug 2025}
+    {PolicyAdvisor}{Toronto, ON}
+
+    \resumeItemListStart
+
+      \resumeItem{
+        Automated insurance proposal generation with AI, cutting processing
+        time from 5--6 hours to 2--5 minutes at 99\%+ accuracy across
+        10+ carriers and saving \textbf{\textasciitilde\$100K/year}.
+      }
+
+      \resumeItem{
+        Launched
+        \textbf{vIQ}\,\href{https://visitorinsurancequotes.ca}{\faGlobe},
+        a visitor-insurance platform providing real-time quotes from 10+ carriers,
+        coordinating a cross-functional team to ship the product in 2 weeks.
+      }
+
+      \resumeItem{
+        Deployed a 24/7 AI phone assistant that answered client calls and
+        automatically scheduled callbacks, reducing
+        \textbf{missed leads by 40\%}.
+      }
+
+    \resumeItemListEnd
+
+\resumeSubHeadingListEnd
 
 
 %-----------PROJECTS-----------
 \section{Projects}
-    \resumeSubHeadingListStart
-      \resumeProjectHeading
-          {\href{https://github.com/Silin144/SpeakSummarize}{\faGithub}\, \textbf{SpeakSummarize - Record. Recall}\, \href{https://www.speaksummarize.com/}{\faGlobe}\, \href{https://apps.apple.com/us/app/speaksummarize/id6755344657}{\faApple} $|$ \emph{[1K+ Downloads, \$1K MRR] Swift, Whisper-1, GPT-4o-mini, Pinecone, mem0}}{}
-          \resumeItemListStart
-            \resumeItem{Built and shipped an AI speech-to-notes iOS app (Whisper-1 transcription, GPT-4o-mini summaries, multi-speaker diarization), reaching \textbf{1,000+ downloads} and \textbf{\$1K MRR} within days of launch.}
-            \resumeItem{Grew via Reddit and mem0-based preference learning, now extending to Android and watchOS.}
-          \resumeItemListEnd
-      \resumeProjectHeading
-          {\href{https://github.com/Silin144/muse-sketch-studio}{\faGithub}\, \textbf{Muse Sketch Studio}\, \href{https://muse-sketch-studio.vercel.app/}{\faGlobe} $|$ \emph{[Replicate AI Hackathon Winner] React.js, TypeScript, Node.js, Replicate API}}{}
-          \resumeItemListStart
-            \resumeItem{Built an \textbf{end-to-end AI fashion design pipeline} (sketch $\rightarrow$ colors $\rightarrow$ model $\rightarrow$ 3D $\rightarrow$ runway video) from text prompts via Google Nano-Banana and Kling v2.1.}
-          \resumeItemListEnd
-    \resumeSubHeadingListEnd
 
+\resumeSubHeadingListStart
+
+  %----------SPEAKSUMMARIZE----------
+  \resumeProjectHeading
+    {
+      \href{https://github.com/Silin144/SpeakSummarize}{\faGithub}\,
+      \textbf{SpeakSummarize --- Record. Recall}\,
+      \href{https://www.speaksummarize.com/}{\faGlobe}\,
+      \href{https://apps.apple.com/us/app/speaksummarize/id6755344657}{\faApple}
+      $|$
+      \emph{1K+ Downloads, \$1K MRR}
+    }{}
+
+    \resumeProjectItemListStart
+
+      \resumeItem{
+        Created and launched an AI iOS app that turns recordings into
+        structured notes using transcription, summaries, speaker separation,
+        and personalized memory; reached
+        \textbf{1,000+ downloads and \$1K MRR within days of launch}.
+      }
+
+      \resumeItem{
+        Grew the product through Reddit and user feedback,
+        with Android and watchOS versions in development.
+      }
+
+    \resumeProjectItemListEnd
+
+
+  %----------MUSE SKETCH STUDIO----------
+  \resumeProjectHeading
+    {
+      \href{https://github.com/Silin144/muse-sketch-studio}{\faGithub}\,
+      \textbf{Muse Sketch Studio}\,
+      \href{https://muse-sketch-studio.vercel.app/}{\faGlobe}
+      $|$
+      \emph{Replicate AI Hackathon Winner}
+    }{}
+
+    \resumeProjectItemListStart
+
+      \resumeItem{
+        Created an AI fashion-design tool that transforms a sketch and text
+        prompt into colored concepts, model images, 3D assets, and runway
+        videos; \textbf{won the Replicate AI Hackathon}.
+      }
+
+    \resumeProjectItemListEnd
+
+\resumeSubHeadingListEnd
+
+
+%-----------SKILLS-----------
+\section{Skills}
+
+\begin{itemize}[leftmargin=0.15in, label={}]
+  \normalsize{\item{
+    \textbf{Languages}{: Python, C/C++, TypeScript/JavaScript, Swift, SQL} \\
+    \textbf{Frameworks}{: React, React Native, Next.js, FastAPI, GraphQL} \\
+    \textbf{AI / ML}{: LLMs, RAG, AI agent evaluation, computer vision, STT/TTS} \\
+    \textbf{Cloud \& Tools}{: GCP, AWS, Docker, Git, CI/CD, PostgreSQL}
+  }}
+\end{itemize}
 
 %-------------------------------------------
 \end{document}
