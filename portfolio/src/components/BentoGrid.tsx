@@ -283,6 +283,59 @@ const BentoCard = ({
 );
 
 // Project Card with 3D tilt effect
+// Full-bleed tile media: poster-first, the video only downloads and plays while hovered
+const CardMedia = ({
+  videoSrc,
+  posterSrc,
+  playing,
+  title,
+}: {
+  videoSrc?: string;
+  posterSrc: string;
+  playing: boolean;
+  title: string;
+}) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    if (playing) {
+      video.play().catch(() => {});
+    } else {
+      video.pause();
+      video.currentTime = 0;
+    }
+  }, [playing]);
+
+  return (
+    <div className="relative w-full aspect-video overflow-hidden bg-bg-tertiary border-b border-border">
+      {videoSrc ? (
+        <video
+          ref={videoRef}
+          src={videoSrc}
+          poster={posterSrc}
+          muted
+          loop
+          playsInline
+          preload="none"
+          aria-label={`${title} demo preview`}
+          className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
+        />
+      ) : (
+        <img
+          src={posterSrc}
+          alt={`${title} preview`}
+          loading="lazy"
+          className="w-full h-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.04]"
+        />
+      )}
+      {/* Subtle bottom fade into the card */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t from-bg-secondary/60 to-transparent" />
+    </div>
+  );
+};
+
 const ProjectCard = ({
   project,
   className,
@@ -298,6 +351,8 @@ const ProjectCard = ({
   const [isHovered, setIsHovered] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
   const hasMedia = project.images || project.gifSrc;
+  const media = project as { videoSrc?: string; posterSrc?: string };
+  const hasHeader = Boolean(media.posterSrc);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
@@ -331,13 +386,14 @@ const ProjectCard = ({
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, delay }}
-        className={cn("relative perspective-1000", className)}
+        className={cn("relative perspective-1000 h-full", className)}
       >
         <motion.div
           ref={cardRef}
           className={cn(
-            "bento-card group cursor-pointer flex flex-col relative overflow-hidden cursor-target",
+            "bento-card group cursor-pointer flex flex-col relative overflow-hidden cursor-target h-full",
             "transition-shadow duration-300",
+            hasHeader && "!p-0",
             hasMedia && isHovered && "shadow-[0_0_30px_rgba(249,115,22,0.15)]"
           )}
           style={{
@@ -361,7 +417,18 @@ const ProjectCard = ({
           )}
 
           {/* Content */}
-          <div className="relative z-10">
+          <div className="relative z-10 flex flex-col flex-1">
+            {/* Full-bleed demo preview */}
+            {hasHeader && (
+              <CardMedia
+                videoSrc={media.videoSrc}
+                posterSrc={media.posterSrc!}
+                playing={isHovered}
+                title={project.title}
+              />
+            )}
+
+            <div className={cn("flex flex-col flex-1", hasHeader && "p-4")}>
             {/* Title + Link */}
             <div className="flex items-start justify-between">
               <div className="flex-1">
@@ -404,7 +471,7 @@ const ProjectCard = ({
             
             {/* Preview indicator - only for cards with media */}
             {hasMedia && (
-              <div className="mt-2 flex justify-end items-center gap-1.5">
+              <div className="mt-auto pt-2 flex justify-end items-center gap-1.5">
                 <motion.div
                   className="flex items-center gap-1"
                   initial={false}
@@ -430,12 +497,13 @@ const ProjectCard = ({
 
             {/* Internal tool indicator */}
             {!hasMedia && (
-              <div className="mt-2 flex justify-end">
+              <div className="mt-auto pt-2 flex justify-end">
                 <span className="text-[9px] text-text-tertiary/50">
                   internal tool
                 </span>
               </div>
             )}
+            </div>
           </div>
         </motion.div>
 
@@ -526,9 +594,82 @@ export const BentoGrid = () => {
 
       {/* ========== MAIN CONTENT: Experience (Left) | Projects (Right) ========== */}
       <section className="grid grid-cols-12 gap-3">
-        {/* LEFT COLUMN - Experience */}
-        <div className="col-span-12 md:col-span-5 space-y-3">
+        {/* LEFT COLUMN - About / Education / Experience */}
+        <div className="col-span-12 md:col-span-5 flex flex-col gap-3">
+          {/* About - flexes to fill the column */}
           <h2 className="text-[10px] uppercase tracking-wider text-text-tertiary px-1">
+            About
+          </h2>
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.1 }}
+          >
+            <div className="bento-card !py-4 !px-4">
+              <p className="text-[12px] leading-relaxed text-text-secondary">
+                I build AI products end-to-end — lately applied ML at{" "}
+                <GlowLink href="https://shopify.com">Shopify</GlowLink>, AI for
+                freight at{" "}
+                <GlowLink href="https://e3group.ai/">E3 Group</GlowLink>, and{" "}
+                <GlowLink href="https://speaksummarize.com">SpeakSummarize</GlowLink>{" "}
+                on the side.
+              </p>
+              <div className="mt-3 pt-3 border-t border-border/50">
+                <p className="text-[10px] font-mono text-text-tertiary flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+                  currently building at E3 Group
+                </p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Education */}
+          <h2 className="text-[10px] uppercase tracking-wider text-text-tertiary px-1 pt-1">
+            Education
+          </h2>
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.15 }}
+            whileHover={{ scale: 1.015, zIndex: 10 }}
+          >
+            <div className="bento-card flex items-center gap-4 !py-3.5 !px-4">
+              <a
+                href="https://uwaterloo.ca"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-shrink-0"
+              >
+                <img
+                  src="/images/uwaterloo-logo.png"
+                  alt="University of Waterloo"
+                  className="w-[44px] h-[44px] object-contain"
+                />
+              </a>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-start justify-between gap-2">
+                  <div className="min-w-0">
+                    <h3 className="text-sm text-text-primary leading-tight">
+                      <span className="font-semibold">CS</span>
+                      <span className="text-text-tertiary"> @ </span>
+                      <GlowLink href="https://uwaterloo.ca">{PERSONAL_INFO.school}</GlowLink>
+                    </h3>
+                    <p className="text-[11px] text-text-secondary mt-0.5">
+                      Honours Co-op · Class of {PERSONAL_INFO.gradYear}
+                    </p>
+                  </div>
+                  <div className="flex-shrink-0 text-right">
+                    <span className="block whitespace-nowrap text-[9px] uppercase tracking-wider text-text-tertiary">
+                      {PERSONAL_INFO.location}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Experience */}
+          <h2 className="text-[10px] uppercase tracking-wider text-text-tertiary px-1 pt-1">
             Experience
           </h2>
           <div className="space-y-2">
@@ -643,6 +784,7 @@ export const BentoGrid = () => {
               </motion.div>
             ))}
           </div>
+
         </div>
 
         {/* RIGHT COLUMN - Projects (Same Size Grid) */}
@@ -652,11 +794,10 @@ export const BentoGrid = () => {
           </h2>
           <div className="grid grid-cols-2 gap-3">
             {PROJECTS.map((project, i) => (
-              <ProjectCard 
-                key={project.id} 
-                project={project} 
+              <ProjectCard
+                key={project.id}
+                project={project}
                 delay={0.15 + i * 0.05}
-                className={i % 2 === 1 ? "md:mt-6" : ""}
               />
             ))}
           </div>
@@ -664,9 +805,9 @@ export const BentoGrid = () => {
       </section>
 
       {/* ========== BOTTOM SECTION (Staggered, Same Height) ========== */}
-      <section className="grid grid-cols-12 gap-3 md:grid-rows-[auto_1fr]">
+      <section className="grid grid-cols-12 gap-3">
         {/* Terminal-style output */}
-        <div className="col-span-6 md:col-span-2 md:row-span-2">
+        <div className="col-span-6 md:col-span-3">
           <BentoCard className="h-full" delay={0.4}>
             <div className="h-full flex flex-col font-mono text-[10px]">
               <div className="flex items-center gap-1.5 mb-2">
@@ -699,8 +840,31 @@ export const BentoGrid = () => {
           </BentoCard>
         </div>
 
+        {/* GitHub - wide */}
+        <div className="col-span-12 md:col-span-5">
+          <BentoCard className="h-full" delay={0.5}>
+            <div className="h-full flex flex-col">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-xs uppercase tracking-wider text-text-tertiary">
+                  GitHub
+                </span>
+                <GlowLink href={`https://github.com/${githubUsername}`} className="text-xs">
+                  @{githubUsername} ↗
+                </GlowLink>
+              </div>
+              <div className="w-full overflow-hidden rounded flex-1 flex items-center">
+                <img
+                  src={`https://ghchart.rshah.org/f97316/${githubUsername}`}
+                  alt="GitHub Contribution Graph"
+                  className="w-full h-auto opacity-90 hover:opacity-100 transition-opacity"
+                />
+              </div>
+            </div>
+          </BentoCard>
+        </div>
+
         {/* Stack - offset */}
-        <div className="col-span-6 md:col-span-2 md:row-start-2">
+        <div className="col-span-6 md:col-span-2">
           <BentoCard className="h-full" delay={0.45}>
             <div className="h-full flex flex-col">
               <span className="text-sm uppercase tracking-wider text-text-tertiary mb-2">
@@ -731,31 +895,8 @@ export const BentoGrid = () => {
           </BentoCard>
         </div>
 
-        {/* GitHub - compact */}
-        <div className="col-span-12 md:col-span-6 md:row-span-2">
-          <BentoCard className="h-full" delay={0.5}>
-            <div className="h-full flex flex-col">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-xs uppercase tracking-wider text-text-tertiary">
-                  GitHub
-                </span>
-                <GlowLink href={`https://github.com/${githubUsername}`} className="text-xs">
-                  @{githubUsername} ↗
-                </GlowLink>
-              </div>
-              <div className="w-full overflow-hidden rounded flex-1 flex items-center">
-                <img
-                  src={`https://ghchart.rshah.org/f97316/${githubUsername}`}
-                  alt="GitHub Contribution Graph"
-                  className="w-full h-auto opacity-90 hover:opacity-100 transition-opacity"
-                />
-              </div>
-            </div>
-          </BentoCard>
-        </div>
-
         {/* CS Webring + Theme Toggle */}
-        <div className="col-span-12 md:col-span-2 md:row-start-2">
+        <div className="col-span-12 md:col-span-2">
           <BentoCard className="h-full" delay={0.55}>
             <div className="h-full flex flex-col items-center justify-center gap-3">
               {/* Theme Toggle */}
@@ -821,14 +962,7 @@ export const BentoGrid = () => {
         transition={{ duration: 0.4, delay: 0.65 }}
         className="flex items-center justify-between text-sm text-text-tertiary px-1 pt-2"
       >
-        <span>© 2025 Silin Raj Gupta</span>
-        <div className="flex items-center gap-3">
-          <GlowLink href={SOCIAL_LINKS.resume} className="text-sm">
-            resume.pdf
-          </GlowLink>
-          <span>·</span>
-          <span>Built with Next.js</span>
-        </div>
+        <span>© 2026 Silin Raj Gupta</span>
       </motion.footer>
     </div>
   );

@@ -1,18 +1,20 @@
 import type { Metadata } from "next";
-import { Inter, Fira_Code, EB_Garamond } from "next/font/google";
+import { Chakra_Petch, Share_Tech_Mono, EB_Garamond } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { Providers } from "@/components/Providers";
 
-const inter = Inter({
+const chakraPetch = Chakra_Petch({
   subsets: ["latin"],
-  variable: "--font-inter",
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-chakra",
   display: "swap",
 });
 
-const firaCode = Fira_Code({
+const shareTechMono = Share_Tech_Mono({
   subsets: ["latin"],
-  variable: "--font-fira-code",
+  weight: "400",
+  variable: "--font-share-tech",
   display: "swap",
 });
 
@@ -58,7 +60,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${firaCode.variable} ${ebGaramond.variable}`}
+      className={`${chakraPetch.variable} ${shareTechMono.variable} ${ebGaramond.variable}`}
     >
       <head>
         <Script
